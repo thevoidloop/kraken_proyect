@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kraken_proyect/data/db_conection.dart';
 import 'package:kraken_proyect/ui/views/history_view.dart';
 import 'package:kraken_proyect/ui/views/home_view.dart';
 
@@ -11,14 +13,26 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectIndex = 0;
+  final db = DBConecction();
+
+  @override
+  void initState() {
+    db.conectar();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-
     final screens = [const HomeView(), const HistoryView()];
-
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          'Kraken Shop',
+          style: GoogleFonts.roboto(fontSize: 24),
+        ),
+      ),
       body: IndexedStack(
         index: selectIndex,
         children: screens,
